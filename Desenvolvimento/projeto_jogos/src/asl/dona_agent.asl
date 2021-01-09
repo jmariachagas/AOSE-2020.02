@@ -6,9 +6,10 @@
 		
 +!perambular : true
 	<-	
+		.wait(2500);
 		proximaCasaDonaCasa.
 
 +ratoPercebido(X, Y) : true
-	<- 	.print("O rato está na posição ", X, " e ", Y);
+	<- 	.print("O rato esta na posicaoo ", X, " e ", Y);
 		.send (gato1, achieve, pegaRato).
 

@@ -93,13 +93,23 @@ public class Ambiente extends Environment{
     	   modeloCasaInfestada.proximaCasaDonaCasa();
        }
        if(action.equals(pcg)) {
-    	   modeloCasaInfestada.proximaCasaGato();
+    	   modeloCasaInfestada.proximaCasaGato(gatoLoc1, 1);
+//    	   modeloCasaInfestada.proximaCasaGato(gatoLoc2, 2);
+//    	   modeloCasaInfestada.proximaCasaGato(gatoLoc3, 3);
        }
        if(action.equals(pcc)) {
     	  modeloCasaInfestada.proximaCasaCao();
        }
        if(action.equals(pcr)) {
-    	  modeloCasaInfestada.proximaCasaRato();
+    	   modeloCasaInfestada.proximaCasaRato(ratoLoc1, 5);
+//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc2, 6);
+//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc3, 7);
+//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc4, 8);
+//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc5, 9);
+//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc6, 10);
+//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc7, 11);
+//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc8, 12);
+//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc9, 13);
        }
        return true; // the action was executed with success
 		
@@ -245,8 +255,8 @@ public class Ambiente extends Environment{
 	      	 */
 			for (int coluna = colunaDona; coluna <= (colunaDona + 3); coluna++) {
 	        	
-				System.out.println("Coluna " + coluna);
-				System.out.println("ColunaDona" + colunaDona);
+//				System.out.println("Coluna " + coluna);
+//				System.out.println("ColunaDona" + colunaDona);
 				
 				if(colunaDona > 19) {
 	        		int diferenca = colunaDona - 19;
@@ -372,9 +382,46 @@ public class Ambiente extends Environment{
 		/**
 		 * movimento aleatorio gato
 		 */
-		public void proximaCasaGato() {
+		public void proximaCasaGato(Location gatoLoc, int i) {
 			
-			//implementar
+			Random alea = new Random();
+			setAgPos(i, gatoLoc);
+			gatoLoc = getAgPos(i);
+			int direcao = alea.nextInt(4);
+			
+			switch (direcao) {
+				case 0: {
+					if (gatoLoc.x < 19) {
+						gatoLoc.x ++;
+					}
+					else if (gatoLoc.y < 19) {
+						gatoLoc.y ++;
+					}
+					break;
+				}
+				case 1:	{
+					if (gatoLoc.x > 0) {
+						gatoLoc.x --;
+					}
+					break;
+					}
+				case 2: {
+					if (gatoLoc.y < 19) {
+						gatoLoc.y ++;
+					}
+					break;
+				}
+				case 3:	{
+					if (gatoLoc.y > 0) {
+						gatoLoc.y --;
+					}
+					break;
+				}
+			}
+			setAgPos(i, gatoLoc);
+						
+		    Literal inicio = Literal.parseLiteral("inicio(0)");
+		    addPercept(inicio);
 		    	
 		 }
 		
@@ -429,9 +476,46 @@ public class Ambiente extends Environment{
 		/**
 		 * movimento aleatorio do rato
 		 */
-		public void proximaCasaRato() {			
+		public void proximaCasaRato(Location ratoLoc, int i) {			
 
-	       //implementar
+			Random alea = new Random();
+			setAgPos(i, ratoLoc);
+			ratoLoc = getAgPos(i);
+			int direcao = alea.nextInt(4);
+			
+			switch (direcao) {
+				case 0: {
+					if (ratoLoc.x < 19) {
+						ratoLoc.x ++;
+					}
+					else if (ratoLoc.y < 19) {
+						ratoLoc.y ++;
+					}
+					break;
+				}
+				case 1:	{
+					if (ratoLoc.x > 0) {
+						ratoLoc.x --;
+					}
+					break;
+					}
+				case 2: {
+					if (ratoLoc.y < 19) {
+						ratoLoc.y ++;
+					}
+					break;
+				}
+				case 3:	{
+					if (ratoLoc.y > 0) {
+						ratoLoc.y --;
+					}
+					break;
+				}
+			}
+			setAgPos(i, ratoLoc);
+						
+		    Literal inicio = Literal.parseLiteral("inicio(0)");
+		    addPercept(inicio);
 			
 		}
 	}

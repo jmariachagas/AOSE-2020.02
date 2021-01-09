@@ -1,9 +1,11 @@
 // Agent rato in project projeto_jogos
 
 +inicio (X) : true
-	<-	.wait (1000);
-		!buscarQueijo.
+	<-	!buscarQueijo.
 		
 +!buscarQueijo : true
 	<-	
+		.wait(3000);
 		proximaCasaRato.
+		
+		

@@ -6,9 +6,11 @@
 
 +!cacarRato : true
 	<-	
+		.wait(2500);
 		proximaCasaGato.
 		
 +!pegaRato [source (donaCasa)] : true
 				<- .wait(100);
-				   .print ("Caçando o rato");
+				   .print ("Cacando o rato");
 				    proximaCasaGato.
+				    
