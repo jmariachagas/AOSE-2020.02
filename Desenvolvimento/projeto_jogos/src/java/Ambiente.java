@@ -227,14 +227,9 @@ public class Ambiente extends Environment{
 		 * movimento linear da dona de casa
 		 */		
 		public void proximaCasaDonaCasa() {
-<<<<<<< HEAD
 			
-			percepcaoSobreRatos();
+			percepcaoSobreRatos();				   	      	
 
-					   	      	
-=======
-			//implementar 	
->>>>>>> 9058dc7a4c3cac55f118dd353f685ef221dec9f8
 		 }
 		
 		private void percepcaoSobreRatos() {
