@@ -5,7 +5,10 @@ MAS projeto_jogos {
 	environment: Ambiente
 	
 	agents:
-		agent1 sample_agent;
+		rato #9;
+		cao;
+		gato #3;
+		dona_agent;
 
 	aslSourcePath:
 		"src/asl";

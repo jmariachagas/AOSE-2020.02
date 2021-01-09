@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -14,6 +15,21 @@ import jason.environment.grid.Location;
 
 public class Ambiente extends Environment{
 	
+	Location donaCasaLoc;
+	Location gatoLoc1;
+	Location gatoLoc2;
+	Location gatoLoc3;
+	Location caoLoc;
+	Location ratoLoc1;
+	Location ratoLoc2;
+	Location ratoLoc3;
+	Location ratoLoc4;
+	Location ratoLoc5;
+	Location ratoLoc6;
+	Location ratoLoc7;
+	Location ratoLoc8;
+	Location ratoLoc9;
+	
 	private ModeloCasaInfestada modeloCasaInfestada;
 	private VisaoAmbiente visaoAmbiente;
 	private static final int QUEIJO = 8;
@@ -21,12 +37,17 @@ public class Ambiente extends Environment{
 	private static final int BURACO = 32;
 	
 	List<Integer> listX = new ArrayList<Integer>();
-	 List<Integer> listY = new ArrayList<Integer>();
-	Location donaCasa;	
-	
-	public static final Term  pc = Literal.parseLiteral("proximaCasa");	
+	List<Integer> listY = new ArrayList<Integer>();
 	private List<Integer> resultPosicaoQueijos = new ArrayList<Integer>();
-	private List<Integer> resultPosicaoBuracos = new ArrayList<Integer>();
+			
+	
+	public static final Term  pc = Literal.parseLiteral("proximaCasaDonaCasa");	
+	public static final Term  pcg = Literal.parseLiteral("proximaCasaGato");
+	public static final Term  pcc = Literal.parseLiteral("proximaCasaCao");
+	public static final Term  pcr = Literal.parseLiteral("proximaCasaRato");
+	
+	public int conInicio = 0, conGato = 0;
+	
 	
 	/**
 	 * metodo relacionado a classe Environment
@@ -35,24 +56,26 @@ public class Ambiente extends Environment{
 	@Override
     public void init(String[] args) {
 		super.init(args);
-		modeloCasaInfestada = new ModeloCasaInfestada(20, 20, 1); //modificar o numero de agentes conforme for incrementando
+		modeloCasaInfestada = new ModeloCasaInfestada(20, 20, 14); //modificar o numero de agentes conforme for incrementando
 		visaoAmbiente = new VisaoAmbiente(modeloCasaInfestada);
 		modeloCasaInfestada.setView(visaoAmbiente);
+		
+		clearPercepts();		
 				
-		Location donaCasaLoc = modeloCasaInfestada.getAgPos(0);
-        Literal pos1 = Literal.parseLiteral("pos(donaCasa," + donaCasaLoc.x + "," + donaCasaLoc.y + ")");
-        addPercept(pos1);
-        modeloCasaInfestada.add(EntradaSaida, 0, 0);
+		donaCasaLoc = modeloCasaInfestada.getAgPos(0);
+		Literal inicio = Literal.parseLiteral("inicio(0)");
+		addPercept(inicio);
+		
+		modeloCasaInfestada.add(EntradaSaida, 0, 0);
         for(int i = 0; i < 12; i++) {
         	resultPosicaoQueijos = posicionaElementos();        	
         	modeloCasaInfestada.add(QUEIJO, resultPosicaoQueijos.get(0), resultPosicaoQueijos.get(1));        	
         }
-        
-        for (int i = 0; i < 4; i++) {
-        	resultPosicaoBuracos = posicionaElementos();
-        	modeloCasaInfestada.add(BURACO, resultPosicaoBuracos.get(0), resultPosicaoBuracos.get(1));
-        }
-        
+
+        modeloCasaInfestada.add(BURACO, ratoLoc1);
+        modeloCasaInfestada.add(BURACO, ratoLoc2);
+        modeloCasaInfestada.add(BURACO, ratoLoc3);
+        modeloCasaInfestada.add(BURACO, ratoLoc4);                
 	}
 	
 	/**
@@ -68,7 +91,16 @@ public class Ambiente extends Environment{
        
        if (action.equals(pc)) {
     	   modeloCasaInfestada.proximaCasaDonaCasa();
-       } 
+       }
+       if(action.equals(pcg)) {
+    	   modeloCasaInfestada.proximaCasaGato();
+       }
+       if(action.equals(pcc)) {
+    	  modeloCasaInfestada.proximaCasaCao();
+       }
+       if(action.equals(pcr)) {
+    	  modeloCasaInfestada.proximaCasaRato();
+       }
        return true; // the action was executed with success
 		
 	}
@@ -123,43 +155,105 @@ public class Ambiente extends Environment{
 	 *
 	 */
 	class ModeloCasaInfestada extends GridWorldModel{
-
+		
 		public ModeloCasaInfestada(int colunas, int linhas, int agentes) {
-			super(colunas, linhas, agentes);
+			super(colunas, linhas, agentes);			
 			
 			//inicializar aqui a posicao inicial dos agentes
+			List <Integer> posicaoGatos = new ArrayList<Integer>();
+			posicaoGatos = posicionaElementos();
+			List <Integer> posicaoGatos2 = new ArrayList<Integer>();
+			posicaoGatos2 = posicionaElementos();
+			List <Integer> posicaoGatos3 = new ArrayList<Integer>();
+			posicaoGatos3 = posicionaElementos();
 			
-			try {
+			List <Integer> posicaoCao = new ArrayList<Integer>();
+			posicaoCao = posicionaElementos();
+			
+			List<Integer> posicaoRato1 = new ArrayList<Integer>();
+			posicaoRato1 = posicionaElementos();
+			List<Integer> posicaoRato2 = new ArrayList<Integer>();
+			posicaoRato2 = posicionaElementos();
+			List<Integer> posicaoRato3 = new ArrayList<Integer>();
+			posicaoRato3 = posicionaElementos();
+			List<Integer> posicaoRato4 = new ArrayList<Integer>();
+			posicaoRato4 = posicionaElementos();	
+			
+			try {				
+				setAgPos(0, 1, 0); // Posiciona o primeiro agente na posição 0,0
+				setAgPos(1, posicaoGatos.get(0), posicaoGatos.get(1));
+				setAgPos(2, posicaoGatos2.get(0), posicaoGatos2.get(1));
+				setAgPos(3, posicaoGatos3.get(0), posicaoGatos3.get(1));
+				setAgPos(4, posicaoCao.get(0), posicaoCao.get(1));
+				setAgPos(5, posicaoRato1.get(0), posicaoRato1.get(1));
+				setAgPos(6, posicaoRato2.get(0), posicaoRato2.get(1));
+				setAgPos(7, posicaoRato3.get(0), posicaoRato3.get(1));
+				setAgPos(8, posicaoRato4.get(0), posicaoRato4.get(1));
+				setAgPos(9, posicaoRato4.get(0), posicaoRato4.get(1));
+				setAgPos(10, posicaoRato3.get(0), posicaoRato3.get(1));
+				setAgPos(11, posicaoRato3.get(0), posicaoRato3.get(1));
+				setAgPos(12, posicaoRato1.get(0), posicaoRato1.get(1));
+				setAgPos(13, posicaoRato2.get(0), posicaoRato2.get(1));
 				
-				setAgPos(0, 0, 0); // Posiciona o primeiro agente na posição 0,0
+				
+				donaCasaLoc = getAgPos(0);
+				gatoLoc1 = getAgPos(1);
+				gatoLoc2 = getAgPos(2);
+				gatoLoc3 = getAgPos(3);
+				caoLoc = getAgPos(4);
+				ratoLoc1 = getAgPos(5);
+				ratoLoc2 = getAgPos(6);
+				ratoLoc3 = getAgPos(7);
+				ratoLoc4 = getAgPos(8);
+				ratoLoc5 = getAgPos(9);
+				ratoLoc6 = getAgPos(10);
+				ratoLoc7 = getAgPos(11);
+				ratoLoc8 = getAgPos(12);
+				ratoLoc9 = getAgPos(13);
+				
 			} catch(Exception e) {
 				 e.printStackTrace();
 			}		
 			
-		}
+		}		
+		
 		
 		/**
 		 * movimento linear da dona de casa
-		 */
+		 */		
 		public void proximaCasaDonaCasa() {
-
-		       	Location donaCasaLoc = getAgPos(0);
-		       	            
-		       	donaCasaLoc.x++;
-		       	            
-		       	if (donaCasaLoc.x == getWidth()) {
-		       		donaCasaLoc.x = 0;
-		       		donaCasaLoc.y++;
-		       	    }
-		       	            
-		       	if (donaCasaLoc.y == getHeight()) {
-		       	    return;
-		       	    }
-		       	
-		       	setAgPos(0, donaCasaLoc);
-		        Literal pos1 = Literal.parseLiteral("pos(donaCasa," + donaCasaLoc.x + "," + donaCasaLoc.y + ")");
-		        addPercept(pos1);		       	
+			
+			//implementar
+				   	      	
 		 }
+		
+		
+		/**
+		 * movimento aleatorio gato
+		 */
+		public void proximaCasaGato() {
+			
+			//implementar
+		    	
+		 }
+		
+		/**
+		 * movimento aleatorio do cao
+		 */
+		public void proximaCasaCao() {
+			
+			//implementar
+			
+		}
+		
+		/**
+		 * movimento aleatorio do rato
+		 */
+		public void proximaCasaRato() {			
+
+	       //implementar
+			
+		}
 	}
 	
 	class VisaoAmbiente extends GridWorldView{
@@ -234,9 +328,50 @@ public class Ambiente extends Environment{
 		@Override
 	    public void drawAgent(Graphics g, int x, int y, Color c, int id) {
 			
-			//criar um swicth aqui
-			criaDonaDeCasa(g, x, y, c, id);
-			
+			switch(id) {
+				case 0:
+					criaDonaDeCasa(g, x, y, c, id);
+					break;
+				case 1:
+					criaGato(g, x, y, c, id);
+					break;
+				case 2:
+					criaGato(g, x, y, c, id);
+					break;
+				case 3:
+					criaGato(g, x, y, c, id);
+					break;
+				case 4:
+					criaCao(g, x, y, c, id);
+					break;
+				case 5:
+					criaRato(g, x, y, c, id);
+					break;
+				case 6:
+					criaRato(g, x, y, c, id);
+					break;
+				case 7:
+					criaRato(g, x, y, c, id);
+					break;
+				case 8:
+					criaRato(g, x, y, c, id);
+					break;
+				case 9:
+					criaRato(g, x, y, c, id);
+					break;
+				case 10:
+					criaRato(g, x, y, c, id);
+					break;
+				case 11:
+					criaRato(g, x, y, c, id);
+					break;
+				case 12:
+					criaRato(g, x, y, c, id);
+					break;
+				case 13:
+					criaRato(g, x, y, c, id);
+					break;
+			}			
 		}
 		
 		private void criaDonaDeCasa(Graphics g, int x, int y, Color c, int id) {
@@ -250,9 +385,48 @@ public class Ambiente extends Environment{
 		         
 		    setVisible(true);
 
-		    }
 		}
 		
-
+		private void criaGato(Graphics g, int x, int y, Color c, int id) {
+			
+			c = Color.BLUE;
+		    
+		    super.drawAgent(g, x, y, c, -1);
+		    
+		    g.setColor(Color.white);
+		                
+		    super.drawString(g, x, y, defaultFont, "gato");
+		         
+		    setVisible(true);
+		}
+		
+		private void criaCao(Graphics g, int x, int y, Color c, int id) {
+			
+			c = Color.RED;
+		    
+		    super.drawAgent(g, x, y, c, -1);
+		    
+		    g.setColor(Color.BLACK);
+		                
+		    super.drawString(g, x, y, defaultFont, "cao");
+		         
+		    setVisible(true);
+		}
+		
+		private void criaRato(Graphics g, int x, int y, Color c, int id) {
+			
+			c = Color.GRAY;
+		    
+		    super.drawAgent(g, x, y, c, -1);
+		    
+		    g.setColor(Color.BLACK);
+		                
+		    super.drawString(g, x, y, defaultFont, "rato");
+		         
+		    setVisible(true);
+		}
 	}
+		
+
+}
 
