@@ -51,7 +51,7 @@ public class Ambiente extends Environment{
 	
 	/**
 	 * metodo relacionado a classe Environment
-	 * Chamado antes da execução da MAS como os argumentos informados em .mas2j
+	 * Chamado antes da execuï¿½ï¿½o da MAS como os argumentos informados em .mas2j
 	 */
 	@Override
     public void init(String[] args) {
@@ -80,8 +80,8 @@ public class Ambiente extends Environment{
 	
 	/**
 	 * metodo relacionado a classe Environment
-	 * Executa uma ação no ambiente. 
-	 * Este método é provavelmente substituído na classe de ambiente do usuário.
+	 * Executa uma aï¿½ï¿½o no ambiente. 
+	 * Este mï¿½todo ï¿½ provavelmente substituï¿½do na classe de ambiente do usuï¿½rio.
 	 */
 	@Override
     public boolean executeAction(String agName, Structure action) {
@@ -107,7 +107,7 @@ public class Ambiente extends Environment{
 	
 	/**
 	 * metodo relacionado a classe Environment
-	 * Chamado pouco antes do final da execução do MAS, o ambiente do usuário pode substituí-lo.
+	 * Chamado pouco antes do final da execuï¿½ï¿½o do MAS, o ambiente do usuï¿½rio pode substituï¿½-lo.
 	 */
 	 @Override
 	    public void stop() {
@@ -180,7 +180,7 @@ public class Ambiente extends Environment{
 			posicaoRato4 = posicionaElementos();	
 			
 			try {				
-				setAgPos(0, 1, 0); // Posiciona o primeiro agente na posição 0,0
+				setAgPos(0, 1, 0); // Posiciona o primeiro agente na posiï¿½ï¿½o 0,0
 				setAgPos(1, posicaoGatos.get(0), posicaoGatos.get(1));
 				setAgPos(2, posicaoGatos2.get(0), posicaoGatos2.get(1));
 				setAgPos(3, posicaoGatos3.get(0), posicaoGatos3.get(1));
@@ -222,9 +222,7 @@ public class Ambiente extends Environment{
 		 * movimento linear da dona de casa
 		 */		
 		public void proximaCasaDonaCasa() {
-			
-			//implementar
-				   	      	
+			//implementar 	
 		 }
 		
 		
@@ -244,6 +242,45 @@ public class Ambiente extends Environment{
 			
 			//implementar
 			
+			Random alea = new Random();
+			setAgPos(4, caoLoc);
+			caoLoc = getAgPos(4);
+						
+//			int linhatual = caoLoc.x;
+//			int colunatual = caoLoc.y;
+			
+			int direcao = alea.nextInt(4);
+			
+			switch (direcao) {
+				case 0: {
+					if (caoLoc.x < 19) {
+						caoLoc.x ++;
+					}
+					else if (caoLoc.y < 19) {
+						caoLoc.y ++;
+					}
+					break;
+				}
+				case 1:	{
+					if (caoLoc.x > 0) {
+						caoLoc.x --;
+					}
+					break;
+					}
+				case 2: {
+					if (caoLoc.y < 19) {
+						caoLoc.y ++;
+					}
+					break;
+				}
+				case 3:	{
+					if (caoLoc.y > 0) {
+						caoLoc.y --;
+					}
+					break;
+				}
+			}
+			
 		}
 		
 		/**
@@ -261,7 +298,7 @@ public class Ambiente extends Environment{
 		public VisaoAmbiente(ModeloCasaInfestada modelo) {
 			super(modelo, "Casa Infestada", 700);
 			
-			//defaultFont = new Font("Arial", Font.BOLD, 12); // Muda a fonte padrão
+			//defaultFont = new Font("Arial", Font.BOLD, 12); // Muda a fonte padrï¿½o
 			
 			//renderiza o ambiente
 			setVisible(true);            
