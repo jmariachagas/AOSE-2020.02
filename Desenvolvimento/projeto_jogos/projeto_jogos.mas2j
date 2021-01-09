@@ -2,6 +2,8 @@ MAS projeto_jogos {
 
 	infrastructure: Centralised
 
+	environment: Ambiente
+	
 	agents:
 		agent1 sample_agent;
 

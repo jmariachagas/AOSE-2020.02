@@ -4,8 +4,17 @@
 
 /* Initial goals */
 
-!start.
+/* Initial goals */
 
-/* Plans */
++pos(L, X, Y) : true
+	<- 	!mover (X, Y).
 
-+!start : true <- .print("hello world.").
++!mover (X, Y) : X < 19
+	<- 	.wait (300);
+		proximaCasa.
+
++!mover (X, Y) : X == 19 & Y < 29
+	<- 	.wait (300);
+		proximaCasa.
+
++!mover (X, Y) : true.
