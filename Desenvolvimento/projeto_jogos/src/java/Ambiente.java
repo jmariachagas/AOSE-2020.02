@@ -36,7 +36,7 @@ public class Ambiente extends Environment{
 	private static final int EntradaSaida = 16;
 	private static final int BURACO = 32;
 	
-	List<Integer> listX = new ArrayList<Integer>();
+	List<Elemento> listElementos = new ArrayList<Elemento>();
 	List<Integer> listY = new ArrayList<Integer>();
 	private List<Integer> resultPosicaoQueijos = new ArrayList<Integer>();
 			
@@ -120,28 +120,33 @@ public class Ambiente extends Environment{
 		 List<Integer> result = new ArrayList<Integer>();
 		 int x = 0;
 		 int y = 0;
+		 boolean posicaoDuplicada = false;
 		 
 		 Random r = new Random();
 		 x = r.nextInt(19);
 		 y = r.nextInt(19);
 		 
-		 for(Integer n : listX) {
-			 if(n == x) {
-				 while(n == x) {
-					 x = r.nextInt(19);
+		 Elemento elemento = new Elemento(x, y);
+		 
+		 for(int i = 0; listElementos.size() > i; i++) {
+			if(listElementos.get(i).getLinha() == elemento.getLinha() && listElementos.get(i).getColuna() == elemento.getColuna()) {
+				posicaoDuplicada = true;
+				break;
+			}
+		 }
+		 if(posicaoDuplicada) {
+			 while(posicaoDuplicada) {
+				 Elemento copia = elemento;
+				 elemento.setLinha(r.nextInt(19));
+				 elemento.setColuna(r.nextInt(19));
+				 
+				 if(!(copia.getLinha() == elemento.getLinha() && copia.getColuna() == elemento.getColuna())) {
+					 posicaoDuplicada = false;
 				 }
 			 }
-		 }
+		 }			 	 
 		 
-		 for (Integer n : listY) {
-			if(n == y) {
-				while(n == y) {				
-					y = r.nextInt(19);
-				}
-			}
-		}
-		 listX.add(x);
-		 listY.add(y);
+		 listElementos.add(elemento);
 		 result.add(x);
 		 result.add(y);
 		 
@@ -223,9 +228,146 @@ public class Ambiente extends Environment{
 		 */		
 		public void proximaCasaDonaCasa() {
 			
-			//implementar
-				   	      	
+			percepcaoSobreRatos();
+
+					   	      	
 		 }
+		
+		private void percepcaoSobreRatos() {
+			
+			donaCasaLoc = getAgPos (0);
+			
+			int linhaDona = donaCasaLoc.y;
+			int colunaDona = donaCasaLoc.x;
+	      	int ratoAchado = 0;
+			
+	      	/**
+	      	 * Percepcao sobre os ratos do ambiente.
+	      	 */
+			for (int coluna = colunaDona; coluna <= (colunaDona + 3); coluna++) {
+	        	
+				System.out.println("Coluna " + coluna);
+				System.out.println("ColunaDona" + colunaDona);
+				
+				if(colunaDona > 19) {
+	        		int diferenca = colunaDona - 19;
+	        		colunaDona = diferenca - 1;
+	        		linhaDona = linhaDona + 1;
+	        		
+	        		if ((colunaDona == ratoLoc1.x) && (linhaDona == ratoLoc1.y)) {
+		        		ratoAchado = 1;
+		        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc1.x +"," + ratoLoc1.y + ")");
+		        	    addPercept(ratoPercebido);
+		        	}
+		        	if ((colunaDona == ratoLoc2.x) && (linhaDona == ratoLoc2.y)) {
+		        		ratoAchado = 1;
+		        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc2.x +"," + ratoLoc2.y + ")");
+		        	    addPercept(ratoPercebido);
+		        	}
+		        	if ((colunaDona == ratoLoc3.x) && (linhaDona == ratoLoc3.y)) {
+		        		ratoAchado = 1;
+		        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc3.x +"," + ratoLoc3.y + ")");
+		        	    addPercept(ratoPercebido);
+		        	}
+		        	
+		        	if ((colunaDona == ratoLoc4.x) && (linhaDona == ratoLoc4.y)) {
+		        		ratoAchado = 1;
+		        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc4.x +"," + ratoLoc4.y + ")");
+		        	    addPercept(ratoPercebido);
+		        	}
+		        	if ((colunaDona == ratoLoc5.x) && (linhaDona == ratoLoc5.y)) {
+		        		ratoAchado = 1;
+		        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc5.x +"," + ratoLoc5.y + ")");
+		        	    addPercept(ratoPercebido);
+		        	}
+		        	if ((colunaDona == ratoLoc6.x) && (linhaDona == ratoLoc6.y)) {
+		        		ratoAchado = 1;
+		        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc6.x +"," + ratoLoc6.y + ")");
+		        	    addPercept(ratoPercebido);
+		        	}
+		        	if ((colunaDona == ratoLoc7.x) && (linhaDona == ratoLoc7.y)) {
+		        		ratoAchado = 1;
+		        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc7.x +"," + ratoLoc7.y + ")");
+		        	    addPercept(ratoPercebido);
+		        	}
+		        	if ((colunaDona == ratoLoc8.x) && (linhaDona == ratoLoc8.y)) {
+		        		ratoAchado = 1;
+		        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc8.x +"," + ratoLoc8.y + ")");
+		        	    addPercept(ratoPercebido);
+		        	}
+		        	if ((colunaDona == ratoLoc9.x) && (linhaDona == ratoLoc6.y)) {
+		        		ratoAchado = 1;
+		        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc9.x +"," + ratoLoc9.y + ")");
+		        	    addPercept(ratoPercebido);
+		        	}
+	        	}
+				
+				if ((coluna == ratoLoc1.x) && (linhaDona == ratoLoc1.y)) {
+	        		ratoAchado = 1;
+	        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc1.x +"," + ratoLoc1.y + ")");
+	        	    addPercept(ratoPercebido);
+	        	}
+	        	if ((coluna == ratoLoc2.x) && (linhaDona == ratoLoc2.y)) {
+	        		ratoAchado = 1;
+	        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc2.x +"," + ratoLoc2.y + ")");
+	        	    addPercept(ratoPercebido);
+	        	}
+	        	if ((coluna == ratoLoc3.x) && (linhaDona == ratoLoc3.y)) {
+	        		ratoAchado = 1;
+	        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc3.x +"," + ratoLoc3.y + ")");
+	        	    addPercept(ratoPercebido);
+	        	}
+	        	
+	        	if ((coluna == ratoLoc4.x) && (linhaDona == ratoLoc4.y)) {
+	        		ratoAchado = 1;
+	        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc4.x +"," + ratoLoc4.y + ")");
+	        	    addPercept(ratoPercebido);
+	        	}
+	        	if ((coluna == ratoLoc5.x) && (linhaDona == ratoLoc5.y)) {
+	        		ratoAchado = 1;
+	        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc5.x +"," + ratoLoc5.y + ")");
+	        	    addPercept(ratoPercebido);
+	        	}
+	        	if ((coluna == ratoLoc6.x) && (linhaDona == ratoLoc6.y)) {
+	        		ratoAchado = 1;
+	        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc6.x +"," + ratoLoc6.y + ")");
+	        	    addPercept(ratoPercebido);
+	        	}
+	        	if ((coluna == ratoLoc7.x) && (linhaDona == ratoLoc7.y)) {
+	        		ratoAchado = 1;
+	        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc7.x +"," + ratoLoc7.y + ")");
+	        	    addPercept(ratoPercebido);
+	        	}
+	        	if ((coluna == ratoLoc8.x) && (linhaDona == ratoLoc8.y)) {
+	        		ratoAchado = 1;
+	        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc8.x +"," + ratoLoc8.y + ")");
+	        	    addPercept(ratoPercebido);
+	        	}
+	        	if ((coluna == ratoLoc9.x) && (linhaDona == ratoLoc6.y)) {
+	        		ratoAchado = 1;
+	        	    Literal ratoPercebido = Literal.parseLiteral("ratoPercebido(" + ratoLoc9.x +"," + ratoLoc9.y + ")");
+	        	    addPercept(ratoPercebido);
+	        	}	       		
+	       	}
+			
+			if (ratoAchado == 0) {
+				
+				if (donaCasaLoc.x < (getWidth() - 1)) {
+					donaCasaLoc.x++;
+				} else if (donaCasaLoc.y < (getHeight() - 1)) {
+					donaCasaLoc.x = 0;
+					donaCasaLoc.y++;
+				} else {
+					donaCasaLoc.x = 0;
+					donaCasaLoc.y = 0;
+				}
+	           	      	
+	           	setAgPos (0, donaCasaLoc);			
+				conInicio++;
+			    Literal inicio = Literal.parseLiteral("inicio(" + conInicio +")");
+			    addPercept(inicio);	
+	       	}			
+		}
 		
 		
 		/**
@@ -254,6 +396,39 @@ public class Ambiente extends Environment{
 	       //implementar
 			
 		}
+	}
+	
+	/**
+	 * Classe para facilitar o controle das casas da matriz.
+	 * @author Jonas
+	 *
+	 */
+	
+	class Elemento {	
+		
+		private int linha, coluna;
+		
+		public Elemento (int x, int y) {
+			this.linha = x;
+			this.coluna = y;
+		}
+		
+		public int getLinha(){
+			return linha;
+		}
+		
+		public int getColuna() {
+			return coluna;
+		}
+		
+		public void setLinha(int linha) {
+			this.linha = linha;
+		}
+		
+		public void setColuna(int coluna) {
+			this.coluna = coluna;
+		}
+		
 	}
 	
 	class VisaoAmbiente extends GridWorldView{
@@ -426,6 +601,8 @@ public class Ambiente extends Environment{
 		    setVisible(true);
 		}
 	}
+	
+	
 		
 
 }

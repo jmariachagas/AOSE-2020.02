@@ -7,3 +7,8 @@
 +!cacarRato : true
 	<-	
 		proximaCasaGato.
+		
++!pegaRato [source (donaCasa)] : true
+				<- .wait(100);
+				   .print ("Caçando o rato");
+				    proximaCasaGato.
