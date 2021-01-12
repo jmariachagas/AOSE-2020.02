@@ -72,10 +72,10 @@ public class Ambiente extends Environment{
         	modeloCasaInfestada.add(QUEIJO, resultPosicaoQueijos.get(0), resultPosicaoQueijos.get(1));        	
         }
 
-        modeloCasaInfestada.add(BURACO, ratoLoc1);
-        modeloCasaInfestada.add(BURACO, ratoLoc2);
-        modeloCasaInfestada.add(BURACO, ratoLoc3);
-        modeloCasaInfestada.add(BURACO, ratoLoc4);                
+//        modeloCasaInfestada.add(BURACO, ratoLoc1);
+//        modeloCasaInfestada.add(BURACO, ratoLoc2);
+//        modeloCasaInfestada.add(BURACO, ratoLoc3);
+//        modeloCasaInfestada.add(BURACO, ratoLoc4);                
 	}
 	
 	/**
@@ -102,14 +102,14 @@ public class Ambiente extends Environment{
        }
        if(action.equals(pcr)) {
     	   modeloCasaInfestada.proximaCasaRato(ratoLoc1, 5);
-//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc2, 6);
-//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc3, 7);
-//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc4, 8);
-//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc5, 9);
-//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc6, 10);
-//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc7, 11);
-//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc8, 12);
-//    	   modeloCasaInfestada.proximaCasaRato(ratoLoc9, 13);
+    	   modeloCasaInfestada.proximaCasaRato(ratoLoc2, 6);
+    	   modeloCasaInfestada.proximaCasaRato(ratoLoc3, 7);
+    	   modeloCasaInfestada.proximaCasaRato(ratoLoc4, 8);
+    	   modeloCasaInfestada.proximaCasaRato(ratoLoc5, 9);
+    	   modeloCasaInfestada.proximaCasaRato(ratoLoc6, 10);
+    	   modeloCasaInfestada.proximaCasaRato(ratoLoc7, 11);
+    	   modeloCasaInfestada.proximaCasaRato(ratoLoc8, 12);
+    	   modeloCasaInfestada.proximaCasaRato(ratoLoc9, 13);
        }
        return true; // the action was executed with success
 		
@@ -430,15 +430,9 @@ public class Ambiente extends Environment{
 		 */
 		public void proximaCasaCao() {
 			
-			//implementar
-			
 			Random alea = new Random();
 			setAgPos(4, caoLoc);
 			caoLoc = getAgPos(4);
-						
-//			int linhatual = caoLoc.x;
-//			int colunatual = caoLoc.y;
-			
 			int direcao = alea.nextInt(4);
 			
 			switch (direcao) {
@@ -471,6 +465,11 @@ public class Ambiente extends Environment{
 				}
 			}
 			
+//			setAgPos(4, caoLoc);
+//			
+//		    Literal inicio = Literal.parseLiteral("inicio(0)");
+//		    addPercept(inicio);
+			
 		}
 		
 		/**
@@ -486,33 +485,40 @@ public class Ambiente extends Environment{
 			switch (direcao) {
 				case 0: {
 					if (ratoLoc.x < 19) {
-						ratoLoc.x ++;
+						ratoLoc.x++;
 					}
 					else if (ratoLoc.y < 19) {
-						ratoLoc.y ++;
+						ratoLoc.y++;
 					}
 					break;
 				}
 				case 1:	{
 					if (ratoLoc.x > 0) {
-						ratoLoc.x --;
+						ratoLoc.x--;
 					}
 					break;
 					}
 				case 2: {
 					if (ratoLoc.y < 19) {
-						ratoLoc.y ++;
+						ratoLoc.y++;
 					}
 					break;
 				}
 				case 3:	{
 					if (ratoLoc.y > 0) {
-						ratoLoc.y --;
+						ratoLoc.y--;
 					}
 					break;
 				}
 			}
+			
 			setAgPos(i, ratoLoc);
+			if (hasObject(QUEIJO, ratoLoc)) {
+		    	
+				remove(QUEIJO, ratoLoc);
+				
+		    	System.out.println("O RATO COMEU O QUEIJO!");
+			}
 						
 		    Literal inicio = Literal.parseLiteral("inicio(0)");
 		    addPercept(inicio);
@@ -556,7 +562,7 @@ public class Ambiente extends Environment{
 	class VisaoAmbiente extends GridWorldView{
 
 		public VisaoAmbiente(ModeloCasaInfestada modelo) {
-			super(modelo, "Casa Infestada", 700);
+			super(modelo, "Casa Infestada", 1000);
 			
 			//defaultFont = new Font("Arial", Font.BOLD, 12); // Muda a fonte padr�o
 			
@@ -596,20 +602,20 @@ public class Ambiente extends Environment{
 			
 			super.drawObstacle(g, x, y);
 			g.setColor(Color.yellow);		        
-			drawString(g, x, y, defaultFont, "Queijo");
+			drawString(g, x, y, defaultFont, "Q");
 			
 		}
 		
 		public void criarEntradaSaida(Graphics g, int x, int y) {
 			super.drawObstacle(g, x, y);
 			g.setColor(Color.ORANGE);		        
-			drawString(g, x, y, defaultFont, "Entrada/Saida");
+			drawString(g, x, y, defaultFont, "I/O");
 		}
 		
 		public void criarBuracosRatos(Graphics g, int x, int y) {
 			super.drawObstacle(g, x, y);
 			g.setColor(Color.white);		        
-			drawString(g, x, y, defaultFont, "Buraco");
+			drawString(g, x, y, defaultFont, "B");
 		}
 		
 		
@@ -678,7 +684,7 @@ public class Ambiente extends Environment{
 		    
 		    g.setColor(Color.blue);
 		                
-		    super.drawString(g, x, y, defaultFont, "donaCasa");
+		    super.drawString(g, x, y, defaultFont, "DC");
 		         
 		    setVisible(true);
 
@@ -692,7 +698,7 @@ public class Ambiente extends Environment{
 		    
 		    g.setColor(Color.white);
 		                
-		    super.drawString(g, x, y, defaultFont, "gato");
+		    super.drawString(g, x, y, defaultFont, "G");
 		         
 		    setVisible(true);
 		}
@@ -705,7 +711,7 @@ public class Ambiente extends Environment{
 		    
 		    g.setColor(Color.BLACK);
 		                
-		    super.drawString(g, x, y, defaultFont, "cao");
+		    super.drawString(g, x, y, defaultFont, "C");
 		         
 		    setVisible(true);
 		}
@@ -718,7 +724,7 @@ public class Ambiente extends Environment{
 		    
 		    g.setColor(Color.BLACK);
 		                
-		    super.drawString(g, x, y, defaultFont, "rato");
+		    super.drawString(g, x, y, defaultFont, "R");
 		         
 		    setVisible(true);
 		}

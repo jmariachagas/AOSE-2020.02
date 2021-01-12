@@ -1,12 +1,11 @@
 // Agent cao in project projeto_jogos
 
 +inicio (X) : true
-	<-	!acordar.
+	<-	.wait(200);
+		!acordar.
 		
 +!acordar : true
-	<-	
-		.wait(2000);
-		proximaCasaCao.
+	<-	proximaCasaCao.
 
 +!buscarGatos : true
 	<-	proximaCasaCao.
