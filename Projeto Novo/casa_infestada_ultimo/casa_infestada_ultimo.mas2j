@@ -1,0 +1,16 @@
+MAS casa_infestada_ultimo {
+
+	infrastructure: Centralised
+	
+	environment: Ambiente
+	
+	agents:
+		cao;
+		gato;
+		rato;
+		dona;
+		
+
+	aslSourcePath:
+		"src/asl";
+}
