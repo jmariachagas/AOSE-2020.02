@@ -1,15 +1,15 @@
 // Agent dona_agent in project projeto_jogos
 
 +inicio (X) : true
-	<-	.wait (800);
+	<-	.wait (400);
 		!perambular.
 		
 +!perambular : true
-	<-	
-		.wait(2500);
-		proximaCasaDonaCasa.
+	<-	proximaCasaDonaCasa.
 
 +ratoPercebido(X, Y) : true
-	<- 	.print("O rato esta na posicaoo ", X, " e ", Y);
-		.send (gato1, achieve, pegaRato).
+	<- 	!perambular.
+//	.print("O rato esta na posicaoo ", X, " e ", Y);
+		
+//		.send (gato1, achieve, pegaRato).
 

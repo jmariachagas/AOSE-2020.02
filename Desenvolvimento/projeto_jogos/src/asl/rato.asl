@@ -5,7 +5,7 @@
 		
 +!buscarQueijo : true
 	<-	
-		.wait(3000);
+		.wait(300);
 		proximaCasaRato.
 		
 		

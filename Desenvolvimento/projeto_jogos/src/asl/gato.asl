@@ -4,9 +4,14 @@
 	<-	.wait (400);
 		!cacarRato.
 
++aindaNaoPegou (X,Y) : true
+				<- !pegaRato.		
+
++ratoApanhado : true <- .print ("Nham! Nham! Nham!"); .kill_agent (rato1).
+
 +!cacarRato : true
 	<-	
-		.wait(2500);
+		.wait(250);
 		proximaCasaGato.
 		
 +!pegaRato [source (donaCasa)] : true
